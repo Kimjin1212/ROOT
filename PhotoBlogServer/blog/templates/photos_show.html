@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Post List</title>
+</head>
+
+<body>
+    <h1 style="background-color: darkorange;padding: 20px; color: #fff;">Intunder Detection</h1>
+    <h2>Cell Phone</h2>
+  
+    <ul>
+        {% for image in photos %}
+        <li>
+            <h4> {{image.tags}}</h4>
+            <img src="http://localhost:8000/media/{{image.image}}" />
+        </li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post123</title>
+</head>
+<body>
+    <h1>Create a new Post</h1>
+    <form id="postForm" method="POST" enctype="multipart/form-data" action="/api/posts/">
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" value="Anonymous"><br><br>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"><br><br>
+
+        <label for="text">Text:</label>
+        <textarea id="text" name="text"></textarea><br><br>
+
+        <label for="published_date">Published Date:</label>
+        <input type="datetime-local" id="published_date" name="published_date"><br><br>
+
+        <label for="tags">Tags:</label>
+        <input type="text" id="tags" name="tags"><br><br>
+
+        <label for="images">Images:</label>
+        <input type="file" id="images" name="images" multiple><br><br>
+
+        <button type="submit">Create Post</button>
+    </form>
+    <script>
+        document.getElementById("postForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            fetch("/api/posts/", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'  // If you use CSRF token
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert("Post created successfully!");
+                    location.reload();
+                } else {
+                    alert("Failed to create post");
+                }
+            }).catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
